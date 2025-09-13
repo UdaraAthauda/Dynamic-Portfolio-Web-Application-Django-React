@@ -5,6 +5,14 @@ import { ColorModeButton } from '../color-mode'
 import Sidebar from './Sidebar';
 
 export default function Navbar() {
+    const routes = [
+        { to: '/', label: 'Home' },
+        { to: '/education', label: 'Education' },
+        { to: '/skills', label: 'Skills' },
+        { to: '/projects', label: 'Projects' },
+        { to: '/contact', label: 'Contact' },
+    ]
+
     return (
         <Flex 
             as="nav" 
@@ -34,29 +42,14 @@ export default function Navbar() {
                 mr={10} 
                 display={{ base: 'none', md: 'flex' }}
             >
-                <NavLink to="/" style={({ isActive }) => ({
-                    fontWeight: isActive ? 'bold' : 'normal',
-                    color: isActive ? 'greenyellow' : 'white',
-                    fontSize: isActive ? '18px' : '16px',
-                })}>Home</NavLink>
 
-                <NavLink to="/skills" style={({ isActive }) => ({
-                    fontWeight: isActive ? 'bold' : 'normal',
-                    color: isActive ? 'greenyellow' : 'white',
-                    fontSize: isActive ? '18px' : '16px',
-                })}>Skills</NavLink>
-
-                <NavLink to="/projects" style={({ isActive }) => ({
-                    fontWeight: isActive ? 'bold' : 'normal',
-                    color: isActive ? 'greenyellow' : 'white',
-                    fontSize: isActive ? '18px' : '16px',
-                })}>Projects</NavLink>
-
-                <NavLink to="/contact" style={({ isActive }) => ({
-                    fontWeight: isActive ? 'bold' : 'normal',
-                    color: isActive ? 'greenyellow' : 'white',
-                    fontSize: isActive ? '18px' : '16px',
-                })}>Contact</NavLink>
+                {routes.map(({ to, label }) => (
+                    <NavLink key={to} to={to} style={({ isActive }) => ({
+                        fontWeight: isActive ? 'bold' : 'normal',
+                        color: isActive ? 'greenyellow' : 'white',
+                        fontSize: isActive ? '18px' : '16px',
+                    })}>{label}</NavLink>
+                ))}
 
                 <ColorModeButton />
             </HStack>
