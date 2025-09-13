@@ -40,6 +40,12 @@ export default function Navbar() {
                     fontSize: isActive ? '18px' : '16px',
                 })}>Home</NavLink>
 
+                <NavLink to="/skills" style={({ isActive }) => ({
+                    fontWeight: isActive ? 'bold' : 'normal',
+                    color: isActive ? 'greenyellow' : 'white',
+                    fontSize: isActive ? '18px' : '16px',
+                })}>Skills</NavLink>
+
                 <NavLink to="/projects" style={({ isActive }) => ({
                     fontWeight: isActive ? 'bold' : 'normal',
                     color: isActive ? 'greenyellow' : 'white',
@@ -54,6 +60,9 @@ export default function Navbar() {
 
                 <ColorModeButton />
             </HStack>
+
+            <ColorModeButton position="absolute" display={{ base: 'flex', md: 'none' }} right="1rem" />
+
         </Flex>
     )
 }
