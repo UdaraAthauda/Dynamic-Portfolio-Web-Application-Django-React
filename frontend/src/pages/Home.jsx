@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Flex,
   Heading,
@@ -9,15 +10,31 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import profileImg from "../assets/img.PNG";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { MdAlternateEmail } from "react-icons/md";
+import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
+import api from "../../api";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [data, setData] = useState()
+
+  const getData = async () => {
+    try {
+      const res = await api.get("introduction/")
+      setData(res.data[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <Container mt={10} centerContent>
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={10} alignItems="center">
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={10}>
         {/* Profile + Socials */}
         <Flex
           justify="center"
@@ -43,14 +60,14 @@ export default function Home() {
 
               {/* Social Icons */}
               <Flex flexDir="column" gap={5}>
-                <IconButton aria-label="GitHub" variant="solid" colorPalette="teal">
+                <IconButton as={'a'} href={data?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
                   <FaGithub />
                 </IconButton>
-                <IconButton aria-label="LinkedIn" variant="solid" colorPalette="teal">
+                <IconButton as={'a'} href={data?.linkedin} aria-label="LinkedIn" variant="solid" colorPalette="teal">
                   <FaLinkedin />
                 </IconButton>
-                <IconButton aria-label="Email" variant="solid" colorPalette="teal">
-                  <MdAlternateEmail />
+                <IconButton as={Link} to='/contact' aria-label="Email" variant="solid" colorPalette="teal">
+                  <FaPhoneSquareAlt />
                 </IconButton>
               </Flex>
             </HStack>
@@ -69,7 +86,7 @@ export default function Home() {
         </Flex>
 
         {/* About Me */}
-        <VStack gap={5}>
+        <VStack gap={5} mr={{base: 0, md: 10}}>
           <Heading
             size={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
             textAlign="center"
@@ -77,16 +94,19 @@ export default function Home() {
             About Me.
           </Heading>
 
+          <Text textAlign={'center'} fontWeight={'bold'}>
+            {data?.description}
+          </Text>
+
           <Text
             fontSize={{ base: "md", md: "lg" }}
-            textAlign={{ base: "center", md: "left" }}
+            textAlign='justify'
             color={{ base: "gray.700", _dark: "gray.300" }}
           >
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat,
-            quia dignissimos. Dolores quis fugiat quidem ullam natus nostrum,
-            consequatur porro corporis voluptatem. Quasi numquam, reiciendis
-            maxime iure quam laudantium magnam.
+            {data?.about}
           </Text>
+
+          <Button as={Link} to='/education' variant={'subtle'} colorPalette={'purple'}>Education<FaArrowRight /></Button>
         </VStack>
       </SimpleGrid>
     </Container>

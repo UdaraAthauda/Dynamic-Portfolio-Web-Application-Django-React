@@ -6,6 +6,7 @@ import Skills from './pages/Skills'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import Education from './pages/Education'
+import Footer from './components/ui/navbar/Footer'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </>
   )
 }
