@@ -33,7 +33,7 @@ export default function Home() {
   }, [])
 
   return (
-    <Container mt={10} centerContent>
+    <Container mt={10} mb={5} centerContent>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={10}>
         {/* Profile + Socials */}
         <Flex

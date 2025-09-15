@@ -9,9 +9,12 @@ import {
   SimpleGrid,
   Tag,
   Wrap,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { FaGraduationCap, FaUserTie } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaGraduationCap, FaUserTie, FaArrowRight } from "react-icons/fa";
 import api from "../../api";
 
 export default function Education() {
@@ -68,7 +71,7 @@ export default function Education() {
                 <Heading size="md">{edu.degree}</Heading>
               </HStack>
 
-              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={3} mb={3}>
+              <SimpleGrid columns={{ base: 1, sm: 2 }} mb={3}>
                 <Text fontWeight="bold" color="blue.600">
                   {edu.institution}
                 </Text>
@@ -146,6 +149,10 @@ export default function Education() {
             </Box>
           ))}
         </VStack>
+
+        <Flex justify={{base: 'center', md: 'end'}} mt={5}>
+          <Button as={Link} to='/skills' variant={'subtle'} colorPalette={'teal'}>Skills<FaArrowRight /></Button>
+        </Flex>
       </Container>
     </>
   );
