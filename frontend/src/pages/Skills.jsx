@@ -72,7 +72,7 @@ export default function Skills() {
           {areas.map((area) => (
             <Tabs.Content key={area} value={area} mt={{ base: 4, md: 6 }}>
               <SimpleGrid
-                columns={{ base: 2, md: 5 }}
+                columns={{ base: 2, md: 4 }}
                 gap={{ base: 4, md: 6 }}
               >
                 {grouped[area].map((skill, idx) => (
@@ -89,7 +89,7 @@ export default function Skills() {
                       <Image
                         src={skill.icon_url}
                         alt={skill.name}
-                        boxSize={{ base: "40px", md: "50px" }}
+                        boxSize={{ base: "50px", md: "60px" }}
                         mx="auto"
                         mb={2}
                       />
