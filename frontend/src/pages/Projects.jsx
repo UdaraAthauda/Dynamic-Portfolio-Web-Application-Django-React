@@ -97,7 +97,7 @@ export default function Projects() {
       </Container>
 
       <Container maxW="6xl" mb={5}>
-        <Flex justify={{ base: 'center', md: 'end' }} mt={5}>
+        <Flex justify={{ base: 'center', md: 'end' }}>
           <Button as={Link} to='/contact' variant={'subtle'} colorPalette={'teal'}>Contact<FaArrowRight /></Button>
         </Flex>
       </Container>

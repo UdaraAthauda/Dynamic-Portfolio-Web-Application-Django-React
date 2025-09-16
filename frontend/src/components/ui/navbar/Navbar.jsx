@@ -1,4 +1,4 @@
-import { Flex, Heading, HStack, Spacer, Box, IconButton } from '@chakra-ui/react'
+import { Flex, Heading, HStack, Box } from '@chakra-ui/react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { ColorModeButton } from '../color-mode'
@@ -14,48 +14,66 @@ export default function Navbar() {
     ]
 
     return (
-        <Flex 
-            as="nav" 
-            p={5} 
-            bg="blue.600" 
-            color="white"
-            align="center"
-            justify={{ base: "center", md: "space-between" }}
-            position="relative"
-        >
-
-            {/* Hamburger menu for mobile */}
-            <Sidebar />
-
-            {/* Centered on mobile, left-aligned on desktop */}
-            <Heading 
-                as={NavLink} 
-                to="/" 
-                ml={{ base: 0, md: 10 }}
+        <>
+            {/* Fixed Navbar */}
+            <Flex 
+                as="nav" 
+                p={5} 
+                bg="blue.600" 
+                color="white"
+                align="center"
+                justify={{ base: "center", md: "space-between" }}
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                zIndex={1000}
+                h="70px" 
             >
-                Udara Athauda
-            </Heading>
+                {/* Hamburger menu for mobile */}
+                <Sidebar />
 
-            {/* Desktop links */}
-            <HStack 
-                gap={4} 
-                mr={10} 
-                display={{ base: 'none', md: 'flex' }}
-            >
+                {/* Logo */}
+                <Heading 
+                    as={NavLink} 
+                    to="/" 
+                    ml={{ base: 0, md: 10 }}
+                >
+                    Udara Athauda
+                </Heading>
 
-                {routes.map(({ to, label }) => (
-                    <NavLink key={to} to={to} style={({ isActive }) => ({
-                        fontWeight: isActive ? 'bold' : 'normal',
-                        color: isActive ? 'greenyellow' : 'white',
-                        fontSize: isActive ? '18px' : '16px',
-                    })}>{label}</NavLink>
-                ))}
+                {/* Desktop links */}
+                <HStack 
+                    gap={4} 
+                    mr={10} 
+                    display={{ base: 'none', md: 'flex' }}
+                >
+                    {routes.map(({ to, label }) => (
+                        <NavLink 
+                            key={to} 
+                            to={to} 
+                            style={({ isActive }) => ({
+                                fontWeight: isActive ? 'bold' : 'normal',
+                                color: isActive ? 'greenyellow' : 'white',
+                                fontSize: isActive ? '18px' : '16px',
+                            })}
+                        >
+                            {label}
+                        </NavLink>
+                    ))}
+                    <ColorModeButton />
+                </HStack>
 
-                <ColorModeButton />
-            </HStack>
+                {/* Mobile color mode button */}
+                <ColorModeButton 
+                    position="absolute" 
+                    display={{ base: 'flex', md: 'none' }} 
+                    right="1rem" 
+                />
+            </Flex>
 
-            <ColorModeButton position="absolute" display={{ base: 'flex', md: 'none' }} right="1rem" />
-
-        </Flex>
+            {/* Spacer to prevent overlap */}
+            <Box h="64px" />  
+        </>
     )
 }

@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <Container mt={10} mb={5} centerContent>
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={10}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
         {/* Profile + Socials */}
         <Flex
           justify="center"
@@ -73,7 +73,7 @@ export default function Home() {
             </HStack>
 
             <Heading
-              size={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
+              size={{ base: "3xl", sm: "3xl", md: "4xl", lg: "5xl" }}
               textAlign="center"
             >
               Hi, I'm{" "}
@@ -81,6 +81,9 @@ export default function Home() {
                 Udara
               </Text>{" "}
               Athauda
+              <Text as="span" color="purple.700">
+                .
+              </Text>
             </Heading>
           </VStack>
         </Flex>

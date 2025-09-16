@@ -16,6 +16,8 @@ import {
 import { useEffect, useState } from "react";
 import api from "../../api";
 import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { toaster } from "@/components/ui/toaster";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -25,6 +27,7 @@ export default function Contact() {
   });
 
   const [contactDetails, setContactDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getData = async () => {
     try {
@@ -46,9 +49,36 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true)
+
+    try {
+      await api.post('contact/', formData)
+
+      toaster.create({
+        title: 'Success',
+        description: 'Your message has been sent!',
+        type: 'success',
+        duration: 5000,
+      })
+
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      })
+
+    } catch (error) {
+      toaster.create({
+        title: 'Error',
+        description: 'An error occurred. Please try again.',
+        type: 'error',
+        duration: 5000,
+      })
+    } finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -59,7 +89,7 @@ export default function Contact() {
         size={{ base: "2xl", md: "3xl" }}
         color="purple.700"
       >
-        Contact Me
+        Get in Touch.
       </Heading>
 
       <Flex
@@ -72,7 +102,7 @@ export default function Contact() {
         <Card.Root flex="1" p={6} shadow="md" borderRadius="2xl">
           <Card.Body>
             <Heading size="md" mb={4}>
-              Get in Touch
+              Contact Me
             </Heading>
             <Text mb={3}>
               I’d love to hear from you! Whether it’s a project, job opportunity,
@@ -100,8 +130,9 @@ export default function Contact() {
                 <FaLinkedin />
               </IconButton>
             </HStack>
+
             <Button variant={'subtle'} colorPalette={'purple'} mt={4}>Download Resume</Button>
-            <Button variant={'subtle'} mt={4}>Back to Home</Button>
+            <Button as={Link} to='/' variant={'subtle'} mt={4}>Back to Home</Button>
           </Card.Body>
         </Card.Root>
 
@@ -114,16 +145,16 @@ export default function Contact() {
             <Stack gap={4}>
               <Field.Root>
                 <Field.Label>Name</Field.Label>
-                <Input name="name" onChange={handleChange} placeholder="Your Name" size="lg" colorPalette={'teal'} />
+                <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" size="lg" colorPalette={'teal'} />
               </Field.Root>
 
               <Field.Root required>
                 <Field.Label>Email<Field.RequiredIndicator /></Field.Label>
-                <Input name="email" type="email" onChange={handleChange} placeholder="Your Email" size="lg" colorPalette={'teal'} required />
+                <Input name="email" value={formData.email} type="email" onChange={handleChange} placeholder="Your Email" size="lg" colorPalette={'teal'} required />
               </Field.Root>
               <Field.Root required>
                 <Field.Label>Message<Field.RequiredIndicator /></Field.Label>
-                <Textarea name="message" onChange={handleChange} placeholder="Your Message" size="lg" rows={5} colorPalette={'teal'} required />
+                <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Your Message" size="lg" rows={5} colorPalette={'teal'} required />
               </Field.Root>
               <Button
                 name="submit"
@@ -133,6 +164,8 @@ export default function Contact() {
                 variant="solid"
                 colorPalette="teal"
                 size="lg"
+                loading={loading}
+                loadingText="Sending..."
               >
                 Send Message
               </Button>

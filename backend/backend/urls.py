@@ -29,6 +29,7 @@ urlpatterns = [
     path('projects/', ProjectView.as_view(), name='projects'),
     path('education/', EducationView.as_view(), name='education'),
     path('introduction/', IntroductionView.as_view(), name='introduction'),
+    path('contact/', ContactView.as_view(), name='contact'),
 
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
