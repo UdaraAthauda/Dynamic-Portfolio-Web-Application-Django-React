@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function Skills() {
   const [skillData, setSkillData] = useState([]);
@@ -34,7 +35,7 @@ export default function Skills() {
   const areas = Object.keys(grouped);
 
   if (areas.length === 0) {
-    return <Text>Loading skills...</Text>;
+    return <LoadingSpinner />;
   }
 
   return (
