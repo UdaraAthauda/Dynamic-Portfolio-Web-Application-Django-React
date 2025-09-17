@@ -6,11 +6,15 @@ The project highlights skills, education, experiences, projects, and allows visi
 
 
 🚀 Features
+
+
 🔹 Frontend (React + Chakra UI)
 
 Responsive Design – Works seamlessly across devices (mobile, tablet, desktop).
 
 Modern UI – Built using Chakra UI with a clean, minimalist theme.
+
+
 
 Dynamic Sections:
 
@@ -29,6 +33,7 @@ Resume Integration – View and download resume (PDF).
 Contact Form – Visitors can send messages via the backend API.
 
 Smooth Navigation – Using React Router for routing between sections.
+
 
 
 🔹 Backend (Django REST Framework)
@@ -50,6 +55,7 @@ Endpoints for:
 /resume/ – Serves resume PDF from database or storage.
 
 Admin Panel for managing portfolio content easily.
+
 
 
 🛠 Tech Stack
