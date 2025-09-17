@@ -37,6 +37,7 @@ class Introduction(models.Model):
     profile_img = models.ImageField(upload_to='profile_img', null=True, blank=True)
     description = models.TextField()
     about = models.TextField()
+    resume = models.FileField(upload_to='resume', null=True, blank=True)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     location = models.CharField(max_length=50)

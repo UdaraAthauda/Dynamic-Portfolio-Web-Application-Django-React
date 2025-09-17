@@ -11,13 +11,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import profileImg from "../assets/img.PNG";
 import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
 import api from "../../api";
 import { Link } from "react-router-dom";
+import ResumeDownload from "@/components/ui/ResumeDownload";
 
 export default function Home() {
   const [data, setData] = useState()
+
+  console.log(data)
 
   const getData = async () => {
     try {
@@ -45,7 +47,7 @@ export default function Home() {
             <HStack gap={5} align="center">
               <Image
                 alt="UD img"
-                src={profileImg}
+                src={data?.profile_img}
                 h={{ base: "250px", sm: "300px", md: "400px" }}
                 bg="blue.100"
                 p="20px"
@@ -89,7 +91,7 @@ export default function Home() {
         </Flex>
 
         {/* About Me */}
-        <VStack gap={5} mr={{base: 0, md: 10}}>
+        <VStack gap={5} mr={{ base: 0, md: 10 }}>
           <Heading
             size={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
             textAlign="center"
@@ -109,7 +111,10 @@ export default function Home() {
             {data?.about}
           </Text>
 
-          <Button as={Link} to='/education' variant={'subtle'} colorPalette={'purple'}>Education<FaArrowRight /></Button>
+          <Flex justify={'space-between'} gap={2} w={'100%'}>
+            <ResumeDownload resumeUrl={data?.resume} />
+            <Button as={Link} to='/education' variant={'subtle'} colorPalette={'teal'}>Education<FaArrowRight /></Button>
+          </Flex>
         </VStack>
       </SimpleGrid>
     </Container>

@@ -18,6 +18,7 @@ import api from "../../api";
 import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toaster } from "@/components/ui/toaster";
+import ResumeDownload from "@/components/ui/ResumeDownload";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -82,11 +83,11 @@ export default function Contact() {
   };
 
   return (
-    <Container maxW="6xl" py={10}>
+    <Container maxW="6xl" py={{ base: 6, md: 10 }}>
       <Heading
         textAlign="center"
-        mb={10}
-        size={{ base: "2xl", md: "3xl" }}
+        mb={{ base: 6, md: 10 }}
+        size={{ base: "xl", md: "3xl" }}
         color="purple.700"
       >
         Get in Touch.
@@ -94,12 +95,12 @@ export default function Contact() {
 
       <Flex
         direction={{ base: "column", md: "row" }}
-        gap={10}
+        gap={{ base: 6, md: 10 }}
         justify="center"
         align="stretch"
       >
         {/* Contact Info */}
-        <Card.Root flex="1" p={6} shadow="md" borderRadius="2xl">
+        <Card.Root flex="1" p={{ base: 4, md: 6 }} shadow="md" borderRadius="2xl">
           <Card.Body>
             <Heading size="md" mb={4}>
               Contact Me
@@ -108,10 +109,12 @@ export default function Contact() {
               I’d love to hear from you! Whether it’s a project, job opportunity,
               or just a chat.
             </Text>
-            <Stack>
+            <Stack gap={4}>
               <Box>
                 <Text fontWeight="bold">Email:</Text>
-                <Text color="teal.600">{contactDetails.email}</Text>
+                <Text color="teal.600" wordBreak="break-word">
+                  {contactDetails.email}
+                </Text>
               </Box>
               <Box>
                 <Text fontWeight="bold">Phone:</Text>
@@ -122,7 +125,7 @@ export default function Contact() {
                 <Text color="teal.600">{contactDetails.location}</Text>
               </Box>
             </Stack>
-            <HStack mt={10} justify={'center'} gap={8}>
+            <HStack mt={5} justify="center" spacing={6} wrap="wrap">
               <IconButton as={'a'} href={contactDetails?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
                 <FaGithub />
               </IconButton>
@@ -130,14 +133,24 @@ export default function Contact() {
                 <FaLinkedin />
               </IconButton>
             </HStack>
-
-            <Button variant={'subtle'} colorPalette={'purple'} mt={4}>Download Resume</Button>
-            <Button as={Link} to='/' variant={'subtle'} mt={4}>Back to Home</Button>
           </Card.Body>
+          <Stack gap={3} w="100%">
+            <ResumeDownload resumeUrl={contactDetails?.resume} />
+            <Button as={Link} to="/" variant="subtle" w="100%">
+              Back to Home
+            </Button>
+          </Stack>
         </Card.Root>
 
         {/* Contact Form */}
-        <Card.Root as="form" onSubmit={handleSubmit} flex="2" p={6} shadow="md" borderRadius="2xl">
+        <Card.Root
+          as="form"
+          onSubmit={handleSubmit}
+          flex="2"
+          p={{ base: 4, md: 6 }}
+          shadow="md"
+          borderRadius="2xl"
+        >
           <Card.Body>
             <Heading size="md" mb={4}>
               Send a Message
@@ -145,22 +158,54 @@ export default function Contact() {
             <Stack gap={4}>
               <Field.Root>
                 <Field.Label>Name</Field.Label>
-                <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" size="lg" colorPalette={'teal'} />
+                <Input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  size="lg"
+                  colorPalette="teal"
+                  required
+                />
               </Field.Root>
 
               <Field.Root required>
-                <Field.Label>Email<Field.RequiredIndicator /></Field.Label>
-                <Input name="email" value={formData.email} type="email" onChange={handleChange} placeholder="Your Email" size="lg" colorPalette={'teal'} required />
+                <Field.Label>
+                  Email<Field.RequiredIndicator />
+                </Field.Label>
+                <Input
+                  name="email"
+                  value={formData.email}
+                  type="email"
+                  onChange={handleChange}
+                  placeholder="Your Email"
+                  size="lg"
+                  colorPalette="teal"
+                  required
+                />
               </Field.Root>
+
               <Field.Root required>
-                <Field.Label>Message<Field.RequiredIndicator /></Field.Label>
-                <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Your Message" size="lg" rows={5} colorPalette={'teal'} required />
+                <Field.Label>
+                  Message<Field.RequiredIndicator />
+                </Field.Label>
+                <Textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Your Message"
+                  size="lg"
+                  rows={5}
+                  colorPalette="teal"
+                  required
+                />
               </Field.Root>
+
               <Button
                 name="submit"
                 type="submit"
                 mt={3}
-                alignSelf="flex-start"
+                alignSelf={{ base: "stretch", md: "flex-start" }}
                 variant="solid"
                 colorPalette="teal"
                 size="lg"
