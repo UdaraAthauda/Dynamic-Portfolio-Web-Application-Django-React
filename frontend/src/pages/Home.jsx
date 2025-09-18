@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt, FaRegCompass } from "react-icons/fa";
 import api from "../../api";
 import { Link } from "react-router-dom";
 import ResumeDownload from "@/components/ui/ResumeDownload";
@@ -20,8 +20,6 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 export default function Home() {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
-
-  console.log(data)
 
   const getData = async () => {
     setLoading(true)
@@ -45,89 +43,91 @@ export default function Home() {
         <LoadingSpinner />
       ) : (
         <Container mt={10} mb={5} centerContent>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
-          {/* Profile + Socials */}
-          <Flex
-            justify="center"
-            align="center"
-            flexDir={{ base: "column", md: "row" }}
-          >
-            <VStack gap={6}>
-              <HStack gap={5} align="center">
-                <Image
-                  alt="UD img"
-                  src={data?.profile_img}
-                  h={{ base: "250px", sm: "300px", md: "400px" }}
-                  bg="blue.100"
-                  p="20px"
-                  border="3px solid"
-                  borderColor="blue.400"
-                  borderRadius="full"
-                  _hover={{
-                    transform: "scale(1.05)",
-                    transition: "0.3s ease-in-out",
-                  }}
-                />
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
+            {/* Profile + Socials */}
+            <Flex
+              justify="center"
+              align="center"
+              flexDir={{ base: "column", md: "row" }}
+            >
+              <VStack gap={6}>
+                <HStack gap={5} align="center">
+                  <Image
+                    alt="UD img"
+                    src={data?.profile_img}
+                    h={{ base: "250px", sm: "300px", md: "400px" }}
+                    bg="blue.100"
+                    p="20px"
+                    border="3px solid"
+                    borderColor="blue.400"
+                    borderRadius="full"
+                    _hover={{
+                      transform: "scale(1.05)",
+                      transition: "0.3s ease-in-out",
+                    }}
+                  />
 
-                {/* Social Icons */}
-                <Flex flexDir="column" gap={5}>
-                  <IconButton as={'a'} href={data?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
-                    <FaGithub />
-                  </IconButton>
-                  <IconButton as={'a'} href={data?.linkedin} aria-label="LinkedIn" variant="solid" colorPalette="teal">
-                    <FaLinkedin />
-                  </IconButton>
-                  <IconButton as={Link} to='/contact' aria-label="Email" variant="solid" colorPalette="teal">
-                    <FaPhoneSquareAlt />
-                  </IconButton>
-                </Flex>
-              </HStack>
+                  {/* Social Icons */}
+                  <Flex flexDir="column" gap={5}>
+                    <IconButton as={'a'} href={data?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
+                      <FaGithub />
+                    </IconButton>
+                    <IconButton as={'a'} href={data?.linkedin} aria-label="LinkedIn" variant="solid" colorPalette="teal">
+                      <FaLinkedin />
+                    </IconButton>
+                    <IconButton as={Link} to='/contact' aria-label="Email" variant="solid" colorPalette="teal">
+                      <FaPhoneSquareAlt />
+                    </IconButton>
+                  </Flex>
+                </HStack>
 
+                <Heading
+                  size={{ base: "3xl", sm: "3xl", md: "4xl", lg: "5xl" }}
+                  textAlign="center"
+                >
+                  Hi, I'm{" "}
+                  <Text as="span" color="purple.700">
+                    Udara
+                  </Text>{" "}
+                  Athauda
+                  <Text as="span" color="purple.700">
+                    .
+                  </Text>
+                </Heading>
+              </VStack>
+            </Flex>
+
+            {/* About Me */}
+            <VStack gap={5} mr={{ base: 0, md: 10 }}>
               <Heading
-                size={{ base: "3xl", sm: "3xl", md: "4xl", lg: "5xl" }}
+                size={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
                 textAlign="center"
               >
-                Hi, I'm{" "}
-                <Text as="span" color="purple.700">
-                  Udara
-                </Text>{" "}
-                Athauda
-                <Text as="span" color="purple.700">
-                  .
-                </Text>
+                <HStack>
+                  <FaRegCompass /> About Me.
+                </HStack>
               </Heading>
+
+              <Text textAlign={'center'} fontWeight={'bold'}>
+                {data?.description}
+              </Text>
+
+              <Text
+                fontSize={{ base: "md", md: "lg" }}
+                textAlign='justify'
+                color={{ base: "gray.700", _dark: "gray.300" }}
+              >
+                {data?.about}
+              </Text>
+
+              <Flex justify={'space-between'} gap={2} w={'100%'}>
+                <ResumeDownload resumeUrl={data?.resume} />
+                <Button as={Link} to='/education' variant={'subtle'} colorPalette={'teal'}>Education<FaArrowRight /></Button>
+              </Flex>
             </VStack>
-          </Flex>
-
-          {/* About Me */}
-          <VStack gap={5} mr={{ base: 0, md: 10 }}>
-            <Heading
-              size={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
-              textAlign="center"
-            >
-              About Me.
-            </Heading>
-
-            <Text textAlign={'center'} fontWeight={'bold'}>
-              {data?.description}
-            </Text>
-
-            <Text
-              fontSize={{ base: "md", md: "lg" }}
-              textAlign='justify'
-              color={{ base: "gray.700", _dark: "gray.300" }}
-            >
-              {data?.about}
-            </Text>
-
-            <Flex justify={'space-between'} gap={2} w={'100%'}>
-              <ResumeDownload resumeUrl={data?.resume} />
-              <Button as={Link} to='/education' variant={'subtle'} colorPalette={'teal'}>Education<FaArrowRight /></Button>
-            </Flex>
-          </VStack>
-        </SimpleGrid>
-      </Container> )
-    }
+          </SimpleGrid>
+        </Container>)
+      }
     </>
   );
 }

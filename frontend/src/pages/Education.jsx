@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaGraduationCap, FaUserTie, FaArrowRight } from "react-icons/fa";
+import { FaGraduationCap, FaUserTie, FaArrowRight, FaBriefcase } from "react-icons/fa";
 import api from "../../api";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -62,7 +62,9 @@ export default function Education() {
               size={{ base: "2xl", md: "3xl" }}
               color="purple.700"
             >
-              Education
+              <HStack justify={'center'}>
+                <FaGraduationCap /> Education
+              </HStack>
             </Heading>
 
             <VStack gap={8} align="stretch">
@@ -114,7 +116,9 @@ export default function Education() {
               size={{ base: "2xl", md: "3xl" }}
               color="green.700"
             >
-              Experience
+              <HStack justify={'center'}>
+                <FaBriefcase /> Work Experience
+              </HStack>
             </Heading>
 
             <VStack gap={8} align="stretch">

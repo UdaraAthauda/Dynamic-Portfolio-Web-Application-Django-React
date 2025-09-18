@@ -1,5 +1,6 @@
 import { Button, DownloadTrigger } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { RxDownload } from "react-icons/rx";
 
 export default function ResumeDownload({ resumeUrl }) {
   const [loading, setLoading] = useState(false)
@@ -21,7 +22,9 @@ export default function ResumeDownload({ resumeUrl }) {
 
   return (
     <DownloadTrigger data={dataPromise} fileName='Udara_Athauda_Resume.pdf' mimeType='application/pdf' asChild>
-      <Button variant={'subtle'} colorPalette={'purple'} loading={loading} loadingText='Downloading...'>Download Resume</Button>
+      <Button variant={'subtle'} colorPalette={'purple'} loading={loading} loadingText='Downloading...'>
+        <RxDownload /> Download Resume
+      </Button>
     </DownloadTrigger>
   )
 }

@@ -12,10 +12,13 @@ import {
   Field,
   HStack,
   IconButton,
+  Icon,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import api from "../../api";
-import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaPhoneSquareAlt, FaPaperPlane, FaEnvelope } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { RxHome } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { toaster } from "@/components/ui/toaster";
 import ResumeDownload from "@/components/ui/ResumeDownload";
@@ -99,7 +102,9 @@ export default function Contact() {
             size={{ base: "2xl", md: "3xl" }}
             color="purple.700"
           >
-            Get in Touch.
+            <HStack justify={'center'}>
+              <FaEnvelope /> Get in Touch.
+            </HStack>
           </Heading>
 
           <Flex
@@ -121,17 +126,24 @@ export default function Contact() {
                 <Stack gap={4}>
                   <Box>
                     <Text fontWeight="bold">Email:</Text>
-                    <Text color="teal.600" wordBreak="break-word">
-                      {contactDetails.email}
-                    </Text>
+                    <HStack color="teal.600">
+                      <Icon as={FaEnvelope} />
+                      <Text wordBreak="break-word">{contactDetails.email}</Text>
+                    </HStack>
                   </Box>
                   <Box>
                     <Text fontWeight="bold">Phone:</Text>
-                    <Text color="teal.600">{contactDetails.phone}</Text>
+                    <HStack color="teal.600">
+                      <Icon as={FaPhoneSquareAlt} />
+                      <Text wordBreak="break-word">{contactDetails.phone}</Text>
+                    </HStack>
                   </Box>
                   <Box>
                     <Text fontWeight="bold">Location:</Text>
-                    <Text color="teal.600">{contactDetails.location}</Text>
+                    <HStack color="teal.600">
+                      <Icon as={FaLocationDot} />
+                      <Text wordBreak="break-word">{contactDetails.location}</Text>
+                    </HStack>
                   </Box>
                 </Stack>
                 <HStack mt={5} justify="center" spacing={6} wrap="wrap">
@@ -146,7 +158,7 @@ export default function Contact() {
               <Stack gap={3} w="100%">
                 <ResumeDownload resumeUrl={contactDetails?.resume} />
                 <Button as={Link} to="/" variant="subtle" w="100%">
-                  Back to Home
+                  <RxHome /> Back to Home
                 </Button>
               </Stack>
             </Card.Root>
@@ -220,7 +232,7 @@ export default function Contact() {
                     loading={submitting}
                     loadingText="Sending..."
                   >
-                    Send Message
+                    <FaPaperPlane /> Send Message
                   </Button>
                 </Stack>
               </Card.Body>
