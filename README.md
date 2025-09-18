@@ -1,4 +1,4 @@
-🌐 Portfolio Website – Fullstack (Django + React + Chakra UI)
+🌐 Dynamic Personal Portfolio Web Application – Fullstack (Django + React + Chakra UI)
 
 
 A fully responsive dynamic personal portfolio web application built with React (frontend), Django REST Framework (backend), and Chakra UI for styling.
