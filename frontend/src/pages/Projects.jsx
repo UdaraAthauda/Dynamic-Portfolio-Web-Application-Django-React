@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, SimpleGrid, Card, Image, Tag, Button, HStack, Heading, Text, Stack, Flex } from "@chakra-ui/react";
 import api from "../../api";
-import { FaGithub, FaArrowRight, FaCode } from "react-icons/fa";
+import { FaGithub, FaArrowRight, FaLaptopCode } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -45,7 +45,7 @@ export default function Projects() {
               color="purple.700"
             >
               <HStack justify={'center'}>
-                <FaCode /> Latest Project Works.
+                <FaLaptopCode /> Latest Project Works.
               </HStack>
             </Heading>
 

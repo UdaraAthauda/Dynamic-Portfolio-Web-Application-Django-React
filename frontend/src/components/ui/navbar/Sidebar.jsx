@@ -3,15 +3,16 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 import { MdHome } from "react-icons/md";
-import { FaGraduationCap, FaLaptopCode, FaCode, FaPhoneAlt } from "react-icons/fa";
+import { FaGraduationCap, FaLaptopCode, FaPhoneAlt } from "react-icons/fa";
+import { HiLightBulb } from "react-icons/hi";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
     const routes = [
         { to: '/', label: 'Home', icon: <MdHome /> },
         { to: '/education', label: 'Education', icon: <FaGraduationCap /> },
-        { to: '/skills', label: 'Skills', icon: <FaLaptopCode /> },
-        { to: '/projects', label: 'Projects', icon: <FaCode /> },
+        { to: '/skills', label: 'Skills', icon: <HiLightBulb /> },
+        { to: '/projects', label: 'Projects', icon: <FaLaptopCode /> },
         { to: '/contact', label: 'Contact', icon: <FaPhoneAlt /> },
     ]
 
