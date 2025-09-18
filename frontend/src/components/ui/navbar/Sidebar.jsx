@@ -2,15 +2,17 @@ import { Button, CloseButton, Drawer, Portal, IconButton, VStack } from "@chakra
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
+import { MdHome } from "react-icons/md";
+import { FaGraduationCap, FaLaptopCode, FaCode, FaPhoneAlt } from "react-icons/fa";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
     const routes = [
-        { to: '/', label: 'Home' },
-        { to: '/education', label: 'Education' },
-        { to: '/skills', label: 'Skills' },
-        { to: '/projects', label: 'Projects' },
-        { to: '/contact', label: 'Contact' },
+        { to: '/', label: 'Home', icon: <MdHome /> },
+        { to: '/education', label: 'Education', icon: <FaGraduationCap /> },
+        { to: '/skills', label: 'Skills', icon: <FaLaptopCode /> },
+        { to: '/projects', label: 'Projects', icon: <FaCode /> },
+        { to: '/contact', label: 'Contact', icon: <FaPhoneAlt /> },
     ]
 
     return (
@@ -25,18 +27,20 @@ const Sidebar = () => {
                 <Drawer.Backdrop />
                 <Drawer.Positioner>
                     <Drawer.Content>
-                        <Drawer.Header>
+                        <Drawer.Header borderBottomWidth="1px">
                             <Drawer.Title>Check about my details</Drawer.Title>
                         </Drawer.Header>
                         <Drawer.Body>
-                            <VStack gap={8} mt={6}>
+                            <VStack gap={8} mt={'20%'}>
 
-                                {routes.map(({ to, label }) => (
-                                    <Button as={NavLink} to={to} key={to} w={'full'} variant={'subtle'} colorPalette={'blue'} onClick={() => setOpen(false)} style={({ isActive }) => ({
+                                {routes.map(({ to, label, icon }) => (
+                                    <Button as={NavLink} to={to} key={to} w={'full'} pl={'33%'} justifyContent={'flex-start'}  variant={'subtle'} colorPalette={'blue'} onClick={() => setOpen(false)} style={({ isActive }) => ({
                                         fontWeight: isActive ? 'bold' : 'normal',
                                         backgroundColor: isActive ? 'lightgreen' : '',
                                         color: isActive ? 'green' : '',
-                                    })}>{label}</Button>
+                                    })}>
+                                        {icon} {label}
+                                    </Button>
                                 ))}
 
                             </VStack>

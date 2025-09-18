@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import api from "../../api";
 import { FaLinkedin, FaGithub, FaPhoneSquareAlt, FaPaperPlane, FaEnvelope } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { RxHome } from "react-icons/rx";
+import { MdOutlineHome } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { toaster } from "@/components/ui/toaster";
 import ResumeDownload from "@/components/ui/ResumeDownload";
@@ -158,7 +158,7 @@ export default function Contact() {
               <Stack gap={3} w="100%">
                 <ResumeDownload resumeUrl={contactDetails?.resume} />
                 <Button as={Link} to="/" variant="subtle" w="100%">
-                  <RxHome /> Back to Home
+                  <MdOutlineHome /> Back to Home
                 </Button>
               </Stack>
             </Card.Root>
