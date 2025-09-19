@@ -1,8 +1,10 @@
-import { Flex, Heading, HStack, Box } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { ColorModeButton } from "../color-mode";
 import Sidebar from "./Sidebar";
+import logo from '../../../../public/logo.png'
+
 
 export default function Navbar() {
   const routes = [
@@ -35,7 +37,10 @@ export default function Navbar() {
 
         {/* Logo */}
         <Heading as={NavLink} to="/" ml={{ base: 0, md: 10 }}>
-          Udara Athauda
+          <Flex align={'center'}>
+            <Image h={{base: '40px', md: '60px'}} src={logo} /> 
+            <Text>Udara Athauda</Text>
+          </Flex>
         </Heading>
 
         {/* Desktop links */}
