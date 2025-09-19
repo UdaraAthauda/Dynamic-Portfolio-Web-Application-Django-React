@@ -11,38 +11,57 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { FaLinkedin, FaGithub, FaArrowRight, FaPhoneSquareAlt, FaRegCompass } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaArrowRight,
+  FaPhoneSquareAlt,
+  FaRegCompass,
+} from "react-icons/fa";
 import api from "../../api";
 import { Link } from "react-router-dom";
 import ResumeDownload from "@/components/ui/ResumeDownload";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { toaster } from "@/components/ui/toaster";
 
 export default function Home() {
-  const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await api.get("introduction/")
-      setData(res.data[0])
+      const res = await api.get("introduction/");
+      setData(res.data[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+
+      toaster.create({
+        title: "Server Error?",
+        description: "Check your connection and please try again!",
+        type: "error",
+        duration: Infinity,
+        closable: true,
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
+
+  if (data.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <Container mt={10} mb={5} centerContent>
+        <Container mt={8} mb={5} centerContent>
           <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
             {/* Profile + Socials */}
             <Flex
@@ -50,7 +69,7 @@ export default function Home() {
               align="center"
               flexDir={{ base: "column", md: "row" }}
             >
-              <VStack gap={6}>
+              <VStack gap={2}>
                 <HStack gap={5} align="center">
                   <Image
                     alt="UD img"
@@ -69,13 +88,31 @@ export default function Home() {
 
                   {/* Social Icons */}
                   <Flex flexDir="column" gap={5}>
-                    <IconButton as={'a'} href={data?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
+                    <IconButton
+                      as={"a"}
+                      href={data?.github}
+                      aria-label="GitHub"
+                      variant="solid"
+                      colorPalette="teal"
+                    >
                       <FaGithub />
                     </IconButton>
-                    <IconButton as={'a'} href={data?.linkedin} aria-label="LinkedIn" variant="solid" colorPalette="teal">
+                    <IconButton
+                      as={"a"}
+                      href={data?.linkedin}
+                      aria-label="LinkedIn"
+                      variant="solid"
+                      colorPalette="teal"
+                    >
                       <FaLinkedin />
                     </IconButton>
-                    <IconButton as={Link} to='/contact' aria-label="Email" variant="solid" colorPalette="teal">
+                    <IconButton
+                      as={Link}
+                      to="/contact"
+                      aria-label="Email"
+                      variant="solid"
+                      colorPalette="teal"
+                    >
                       <FaPhoneSquareAlt />
                     </IconButton>
                   </Flex>
@@ -108,26 +145,34 @@ export default function Home() {
                 </HStack>
               </Heading>
 
-              <Text textAlign={'center'} fontWeight={'bold'}>
+              <Text textAlign={"center"} fontWeight={"bold"}>
                 {data?.description}
               </Text>
 
               <Text
                 fontSize={{ base: "md", md: "lg" }}
-                textAlign='justify'
+                textAlign="justify"
                 color={{ base: "gray.700", _dark: "gray.300" }}
               >
                 {data?.about}
               </Text>
 
-              <Flex justify={'space-between'} gap={2} w={'100%'}>
+              <Flex justify={"space-between"} gap={2} w={"100%"}>
                 <ResumeDownload resumeUrl={data?.resume} />
-                <Button as={Link} to='/education' variant={'subtle'} colorPalette={'teal'}>Education<FaArrowRight /></Button>
+                <Button
+                  as={Link}
+                  to="/education"
+                  variant={"subtle"}
+                  colorPalette={"teal"}
+                >
+                  Education
+                  <FaArrowRight />
+                </Button>
               </Flex>
             </VStack>
           </SimpleGrid>
-        </Container>)
-      }
+        </Container>
+      )}
     </>
   );
 }

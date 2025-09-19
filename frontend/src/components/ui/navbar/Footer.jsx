@@ -1,4 +1,11 @@
-import { Box, Container, Flex, Text, HStack, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Text,
+  HStack,
+  IconButton,
+} from "@chakra-ui/react";
 import { FaGithub, FaLinkedin, FaPhoneSquareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

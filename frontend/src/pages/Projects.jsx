@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Container, SimpleGrid, Card, Image, Tag, Button, HStack, Heading, Text, Stack, Flex } from "@chakra-ui/react";
+import {
+  Container,
+  SimpleGrid,
+  Card,
+  Image,
+  Tag,
+  Button,
+  HStack,
+  Heading,
+  Text,
+  Stack,
+  Flex,
+} from "@chakra-ui/react";
 import api from "../../api";
 import { FaGithub, FaArrowRight, FaLaptopCode } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -7,23 +19,27 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function Projects() {
   const [projectData, setProjectData] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const res = await api.get("projects/");
       setProjectData(res.data);
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  if (projectData.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   const formatDate = (date) => {
     if (!date) return "Present"; // handle null values
@@ -44,7 +60,7 @@ export default function Projects() {
               size={{ base: "2xl", md: "3xl" }}
               color="purple.700"
             >
-              <HStack justify={'center'}>
+              <HStack justify={"center"}>
                 <FaLaptopCode /> Latest Project Works.
               </HStack>
             </Heading>
@@ -53,12 +69,16 @@ export default function Projects() {
               {projectData.map((project) => (
                 <Card.Root
                   key={project.id}
-                  w={{ base: 'full', md: 'xl' }}
+                  w={{ base: "full", md: "xl" }}
                   maxW="lg"
                   overflow="hidden"
                   borderRadius={5}
                   shadow="md"
-                  _hover={{ transform: "translateY(-6px)", shadow: "xl", transition: "0.3s" }}
+                  _hover={{
+                    transform: "translateY(-6px)",
+                    shadow: "xl",
+                    transition: "0.3s",
+                  }}
                 >
                   <Image
                     src={project.image}
@@ -85,11 +105,17 @@ export default function Projects() {
                         {formatDate(project.created_at)}
                       </Text>
                     </Stack>
-                    <Card.Description textAlign={'justify'}>{project.description}</Card.Description>
+                    <Card.Description textAlign={"justify"}>
+                      {project.description}
+                    </Card.Description>
 
                     <HStack mt={2} flexWrap="wrap" gap={2}>
                       {project.skills.map((skill, i) => (
-                        <Tag.Root key={skill.id} colorPalette={'purple'} size={'lg'}>
+                        <Tag.Root
+                          key={skill.id}
+                          colorPalette={"purple"}
+                          size={"lg"}
+                        >
                           <Tag.Label>{skill.name}</Tag.Label>
                         </Tag.Root>
                       ))}
@@ -97,7 +123,14 @@ export default function Projects() {
                   </Card.Body>
 
                   <Card.Footer gap="2">
-                    <Button as="a" href={project.github} w={'full'} target="_blank" rel="noopener noreferrer" variant="solid">
+                    <Button
+                      as="a"
+                      href={project.github}
+                      w={"full"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant="solid"
+                    >
                       <FaGithub /> View Code
                     </Button>
                   </Card.Footer>
@@ -107,12 +140,20 @@ export default function Projects() {
           </Container>
 
           <Container maxW="6xl" mb={5}>
-            <Flex justify={{ base: 'center', md: 'end' }}>
-              <Button as={Link} to='/contact' variant={'subtle'} colorPalette={'teal'}>Contact<FaArrowRight /></Button>
+            <Flex justify={{ base: "center", md: "end" }}>
+              <Button
+                as={Link}
+                to="/contact"
+                variant={"subtle"}
+                colorPalette={"teal"}
+              >
+                Contact
+                <FaArrowRight />
+              </Button>
             </Flex>
           </Container>
-        </>)
-      }
+        </>
+      )}
     </>
   );
 }

@@ -13,12 +13,18 @@ import {
   HStack,
   IconButton,
   Icon,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import api from "../../api";
-import { FaLinkedin, FaGithub, FaPhoneSquareAlt, FaPaperPlane, FaEnvelope } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaPhoneSquareAlt,
+  FaPaperPlane,
+  FaEnvelope,
+} from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { MdOutlineHome } from "react-icons/md";
+import { MdOutlineHome, MdTouchApp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { toaster } from "@/components/ui/toaster";
 import ResumeDownload from "@/components/ui/ResumeDownload";
@@ -26,9 +32,9 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
 
   const [contactDetails, setContactDetails] = useState([]);
@@ -36,59 +42,62 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await api.get('introduction/')
-      setContactDetails(res.data[0])
+      const res = await api.get("introduction/");
+      setContactDetails(res.data[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
+    setSubmitting(true);
 
     try {
-      await api.post('contact/', formData)
+      await api.post("contact/", formData);
 
       toaster.create({
-        title: 'Success',
-        description: 'Your message has been sent!',
-        type: 'success',
+        title: "Success",
+        description: "Your message has been sent!",
+        type: "success",
         duration: 5000,
-      })
+      });
 
       setFormData({
-        name: '',
-        email: '',
-        message: ''
-      })
-
+        name: "",
+        email: "",
+        message: "",
+      });
     } catch (error) {
       toaster.create({
-        title: 'Error',
-        description: 'An error occurred. Please try again.',
-        type: 'error',
+        title: "Error",
+        description: "An error occurred. Please try again.",
+        type: "error",
         duration: 5000,
-      })
+      });
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   };
+
+  if (contactDetails.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>
@@ -102,8 +111,8 @@ export default function Contact() {
             size={{ base: "2xl", md: "3xl" }}
             color="purple.700"
           >
-            <HStack justify={'center'}>
-              <FaEnvelope /> Get in Touch.
+            <HStack justify={"center"}>
+              <MdTouchApp /> Get in Touch.
             </HStack>
           </Heading>
 
@@ -114,14 +123,19 @@ export default function Contact() {
             align="stretch"
           >
             {/* Contact Info */}
-            <Card.Root flex="1" p={{ base: 4, md: 6 }} shadow="md" borderRadius="2xl">
+            <Card.Root
+              flex="1"
+              p={{ base: 4, md: 6 }}
+              shadow="md"
+              borderRadius="2xl"
+            >
               <Card.Body>
                 <Heading size="md" mb={4}>
                   Contact Me
                 </Heading>
                 <Text mb={3}>
-                  I’d love to hear from you! Whether it’s a project, job opportunity,
-                  or just a chat.
+                  I’d love to hear from you! Whether it’s a project, job
+                  opportunity, or just a chat.
                 </Text>
                 <Stack gap={4}>
                   <Box>
@@ -142,15 +156,29 @@ export default function Contact() {
                     <Text fontWeight="bold">Location:</Text>
                     <HStack color="teal.600">
                       <Icon as={FaLocationDot} />
-                      <Text wordBreak="break-word">{contactDetails.location}</Text>
+                      <Text wordBreak="break-word">
+                        {contactDetails.location}
+                      </Text>
                     </HStack>
                   </Box>
                 </Stack>
                 <HStack mt={5} justify="center" spacing={6} wrap="wrap">
-                  <IconButton as={'a'} href={contactDetails?.github} aria-label="GitHub" variant="solid" colorPalette="teal">
+                  <IconButton
+                    as={"a"}
+                    href={contactDetails?.github}
+                    aria-label="GitHub"
+                    variant="solid"
+                    colorPalette="teal"
+                  >
                     <FaGithub />
                   </IconButton>
-                  <IconButton as={'a'} href={contactDetails?.linkedin} aria-label="LinkedIn" variant="solid" colorPalette="teal">
+                  <IconButton
+                    as={"a"}
+                    href={contactDetails?.linkedin}
+                    aria-label="LinkedIn"
+                    variant="solid"
+                    colorPalette="teal"
+                  >
                     <FaLinkedin />
                   </IconButton>
                 </HStack>
@@ -191,7 +219,8 @@ export default function Contact() {
 
                   <Field.Root required>
                     <Field.Label>
-                      Email<Field.RequiredIndicator />
+                      Email
+                      <Field.RequiredIndicator />
                     </Field.Label>
                     <Input
                       name="email"
@@ -207,7 +236,8 @@ export default function Contact() {
 
                   <Field.Root required>
                     <Field.Label>
-                      Message<Field.RequiredIndicator />
+                      Message
+                      <Field.RequiredIndicator />
                     </Field.Label>
                     <Textarea
                       name="message"
@@ -241,5 +271,5 @@ export default function Contact() {
         </Container>
       )}
     </>
-  )
+  );
 }

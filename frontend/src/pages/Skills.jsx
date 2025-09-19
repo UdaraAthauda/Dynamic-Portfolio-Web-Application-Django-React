@@ -47,7 +47,12 @@ export default function Skills() {
           lazyMount
           unmountOnExit
         >
-          <Tabs.List justify="center" flexWrap="nowrap" overflowX="auto" gap={1}>
+          <Tabs.List
+            justify="center"
+            flexWrap="nowrap"
+            overflowX="auto"
+            gap={1}
+          >
             {areas.map((area) => (
               <Tabs.Trigger
                 key={area}

@@ -14,14 +14,19 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaGraduationCap, FaUserTie, FaArrowRight, FaBriefcase } from "react-icons/fa";
+import {
+  FaGraduationCap,
+  FaUserTie,
+  FaArrowRight,
+  FaBriefcase,
+} from "react-icons/fa";
 import api from "../../api";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function Education() {
-  const [educationData, setEducationData] = useState([])
-  const [experienceData, setExperienceData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [educationData, setEducationData] = useState([]);
+  const [experienceData, setExperienceData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const formatDate = (date) => {
     if (!date) return "Present"; // handle null values
@@ -30,23 +35,27 @@ export default function Education() {
   };
 
   const getData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await api.get("education/")
-      setEducationData(res.data)
+      const res = await api.get("education/");
+      setEducationData(res.data);
 
-      const res2 = await api.get("experiences/")
-      setExperienceData(res2.data)
+      const res2 = await api.get("experiences/");
+      setExperienceData(res2.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
+
+  if (educationData.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>
@@ -62,7 +71,7 @@ export default function Education() {
               size={{ base: "2xl", md: "3xl" }}
               color="purple.700"
             >
-              <HStack justify={'center'}>
+              <HStack justify={"center"}>
                 <FaGraduationCap /> Education
               </HStack>
             </Heading>
@@ -116,7 +125,7 @@ export default function Education() {
               size={{ base: "2xl", md: "3xl" }}
               color="green.700"
             >
-              <HStack justify={'center'}>
+              <HStack justify={"center"}>
                 <FaBriefcase /> Work Experience
               </HStack>
             </Heading>
@@ -186,5 +195,5 @@ export default function Education() {
         </>
       )}
     </>
-  )
+  );
 }
